@@ -20,10 +20,8 @@ class ConfigFactory
 
     public function loadDir( $dir )
     {
-        
+
     }
 
 }
-
-
  ?>
