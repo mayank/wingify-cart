@@ -7,7 +7,7 @@ return array(
     # cart API
     'GET:/cart/items'       => array('CartController', 'showDetails'),
     'POST:/cart/item'       => array('CartController', 'addItem'),
-    'POST:/cart/item/{id}'  => array('CartController', 'removeItem'),
+    'DELETE:/cart/item/{id}'  => array('CartController', 'removeItem'),
     'DELETE:/cart/items'    => array('CartController', 'clearCart'),
     'PUT:/cart/item/{id}'   => array('CartController', 'editItem'),
 
