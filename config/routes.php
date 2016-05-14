@@ -9,7 +9,10 @@ return array(
     'POST:/cart/item'       => array('CartController', 'addItem'),
     'POST:/cart/item/{id}'  => array('CartController', 'removeItem'),
     'DELETE:/cart/items'    => array('CartController', 'clearCart'),
-    'PUT:/cart/item/{id}'   => array('CartController', 'editItem')
+    'PUT:/cart/item/{id}'   => array('CartController', 'editItem'),
+
+    # error
+    'ERROR' => array('CartController', 'showDetails')
 );
 
  ?>

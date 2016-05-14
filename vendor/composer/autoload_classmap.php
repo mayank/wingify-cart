@@ -7,6 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Configurator\\ConfigFactory' => $baseDir . '/libs/Configurator/ConfigFactory.php',
+    'Controller\\BaseController' => $baseDir . '/controller/BaseController.php',
+    'Controller\\CartController' => $baseDir . '/controller/CartController.php',
     'Model\\BaseModel' => $baseDir . '/models/BaseModel.php',
     'Model\\ProductModel' => $baseDir . '/models/ProductModel.php',
     'Model\\UserModel' => $baseDir . '/models/UserModel.php',

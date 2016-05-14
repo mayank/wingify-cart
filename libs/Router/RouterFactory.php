@@ -19,12 +19,18 @@ class RouterFactory
 
     public function route( $routes )
     {
-        list( $host, $path, $query ) = parse_url($url);
+        $parsedUrl = parse_url($_SERVER['REQUEST_URI']);
+        $path = $parsedUrl['path'];
+
         $method = $_SERVER['REQUEST_METHOD'];
         $route = "$method:$path";
+
         if( array_key_exists($route, $routes) ){
             list($controller, $function) = $routes[$route];
+        } else {
+            list($controller, $function) = $routes['ERROR'];
         }
+
         return array( 'controller' => $controller, 'function' => $function );
     }
 }

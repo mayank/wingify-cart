@@ -14,11 +14,13 @@ class App
         $config = ConfigFactory::getInstance()->load(__DIR__.'/config');
 
         # route the path
-        list( $ctrl, $func, $params ) = RouterFactory::getInstance()->route( $config['routes'] );
+        $route = RouterFactory::getInstance()->route( $config['routes'] );
+        $controller = "Controller\\".$route['controller'];
+        $action = $route['function'];
 
         # calling the controllers
-        $ctrlObj = new Controller\$ctrl();
-        $ctrlObj->$func( $params );
+        $callable = new $controller();
+        $callable->$action();
     }
 }
 
