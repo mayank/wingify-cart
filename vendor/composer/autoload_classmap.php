@@ -6,5 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Configurator\\Config' => $baseDir . '/libs/Configurator/Config.php',
+    'Configurator\\ConfigFactory' => $baseDir . '/libs/Configurator/ConfigFactory.php',
+    'Model\\BaseModel' => $baseDir . '/models/BaseModel.php',
+    'Model\\ProductModel' => $baseDir . '/models/ProductModel.php',
+    'Model\\UserModel' => $baseDir . '/models/UserModel.php',
+    'Router\\RouterFactory' => $baseDir . '/libs/Router/RouterFactory.php',
 );
