@@ -2,7 +2,7 @@
 
 namespace Configurator;
 
-class ConfigFactory
+class ConfigManager
 {
     private static $class;
     private static $config;
@@ -13,7 +13,7 @@ class ConfigFactory
     public static function getInstance(){
 
         if(self::$class == null){
-            self::$class = new ConfigFactory();
+            self::$class = new ConfigManager();
         }
 
         return self::$class;
