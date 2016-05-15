@@ -11,13 +11,18 @@ class BaseController
             $this->request = $request;
       }
 
-      public unction getRequest()
+      public function getRequest()
       {
             return $this->request;
       }
 
       public function responseOK($array){
             $this->setStatusHeaders(200);
+            $this->renderJSON($array);
+      }
+
+      public function response($array){
+            $this->setStatusHeaders($this->request->getStatusCode());
             $this->renderJSON($array);
       }
 

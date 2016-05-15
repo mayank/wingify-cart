@@ -32,7 +32,7 @@ class SessionManager
 
     public function get( $name )
     {
-        return $this->session[$name];
+        return isset($this->session[$name]) ? $this->session[$name] : null;
     }
 
     public function set( $name, $value )
@@ -43,7 +43,7 @@ class SessionManager
 
     public function __destruct()
     {
-        $_SESSION[$this->$name] = json_encode($this->session);
+        $_SESSION[$this->name] = json_encode($this->session);
     }
 
 }

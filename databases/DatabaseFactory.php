@@ -28,6 +28,11 @@ class DatabaseFactory
         }
         return self::$class;
     }
+
+    public function getUserMap()
+    {
+        return new UserMap($this->connection);
+    }
 }
 
 ?>

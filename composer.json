@@ -12,9 +12,8 @@
     "autoload": {
          "classmap": [
             "controller/",
-            "database/",
+            "databases/",
             "libs/",
-            "models/",
             "bootstrap/"
         ]
     }

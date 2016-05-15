@@ -2,19 +2,18 @@
 
 namespace Authenticator;
 
-use Model\UserModel;
+use DBC\UserMap;
 use App\Factory;
 
 class Authenticate
 {
-
       private $sessionManager;
+      private $userDB;
 
       public function __construct()
       {
             $this->sessionManager = Factory::getSessionManager();
-            $databaseFactory = Factory::getDatabaseFactory();
-            $this->userDB = $databaseFactory::getUserDBC();
+            $this->userDB = Factory::getDatabaseFactory()->getUserMap();
       }
 
       public function authenticate()
@@ -31,25 +30,20 @@ class Authenticate
             $message = null;
 
             $user = $this->getUserByCredentials( $username, $password );
-            if( $user instanceof UserModel ){
+            if( $user instanceof UserMap ){
                   $this->setUserSession($user);
                   $status = true;
-                  $message = MessageProvider::get('login_success');
+                  $message = 'Logged In Successfully';
             }
             else {
-                  $message = MessageProvider::get('login_failed');
+                  $message = 'Invalid Credentials';
             }
             return array('status' => $status, 'message' => $message);
       }
 
       private function setUserSession( $user )
       {
-            $this->sessionManager->set( '_user', $user );
-      }
-
-      private function getUserById( $userId )
-      {
-            return $this->userDB->getUserByCredentials( $userId );
+            $this->sessionManager->set( '_user', $user->getUserId() );
       }
 
       private function getUserByCredentials( $username, $password )
@@ -59,8 +53,9 @@ class Authenticate
 
       public function isUserLoggedIn()
       {
-            $user = $this->sessionManager->get('_user');
-            $this->userDB->getUserById( $user->userId );
+            $userId = $this->sessionManager->get('_user');
+            $user = $this->userDB->getUserById( $userId );
+            return ($user instanceof UserMap);
       }
 
 

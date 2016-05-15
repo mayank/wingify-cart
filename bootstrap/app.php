@@ -21,11 +21,14 @@ class App
     {
         $this->configManager = Factory::getConfigManager();
         $this->configManager->load(__DIR__.'/../config');
+
+        $this->routeManager = Factory::getRouteManager();
+
+        $this->authManager = Factory::getAuthManager();
     }
 
     private function checkAuthentication()
     {
-        $this->authManager = Factory::getAuthManager();
         if( !$this->authManager->isUserLoggedIn() ){
             $this->routeManager->routeToError(403);
         }
@@ -33,7 +36,6 @@ class App
 
     private function route()
     {
-        $this->routeManager = Factory::getRouteManager();
         $config = $this->routeManager->get('routes');
         $route = $this->routeManager->route($config);
     }

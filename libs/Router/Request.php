@@ -10,13 +10,25 @@ class Request
     private $requestUri;
     private $path;
     private $params;
+    private $statusCode;
 
     public function __construct()
     {
+        $statusCode = 200;
         $this->parseRoute();
 
         $this->setGetParameters();
         $this->setPostParameters();
+    }
+
+    public function setStatusCode($statusCode)
+    {
+        $this->statusCode = $statusCode;
+    }
+
+    public function getStatusCode()
+    {
+        return $this->statusCode;
     }
 
     public function parseRoute()
