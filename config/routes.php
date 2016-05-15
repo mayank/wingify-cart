@@ -3,6 +3,8 @@
 return array(
     # authentication
     'POST:/login'    => array('AuthController', 'authenticateUser'),
+    # error
+    'ERROR' => array('DefaultController', 'showError'),
 
     # cart API
     'GET:/cart/items'       => array('CartController', 'showDetails'),
@@ -10,9 +12,6 @@ return array(
     'DELETE:/cart/item/{id}'  => array('CartController', 'removeItem'),
     'DELETE:/cart/items'    => array('CartController', 'clearCart'),
     'PUT:/cart/item/{id}'   => array('CartController', 'editItem'),
-
-    # error
-    'ERROR' => array('CartController', 'showDetails')
 );
 
  ?>

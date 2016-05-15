@@ -2,7 +2,9 @@
 
 namespace Model;
 
-class BaseModel
+use ArrayAccess;
+
+class BaseModel implements ArrayAccess
 {
     public function __get($variable){
         return $this->$variable;
