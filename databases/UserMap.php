@@ -12,7 +12,15 @@ class UserMap extends ObjectMap
     {
         return $this->findPrimary( $userId );
     }
-}
 
+    public function getUserByCredentials( $username, $password )
+    {
+        return $this->find()
+                ->where( array(
+                    'username' => $username,
+                    'password' => md5($password)
+                )->get();
+    }
+}
 
  ?>

@@ -10,6 +10,7 @@ return array(
     'App\\Factory' => $baseDir . '/bootstrap/factory.php',
     'Authenticator\\Authenticate' => $baseDir . '/libs/Authenticator/Authenticate.php',
     'Configurator\\ConfigManager' => $baseDir . '/libs/Configurator/ConfigManager.php',
+    'Controller\\AuthController' => $baseDir . '/controller/AuthController.php',
     'Controller\\BaseController' => $baseDir . '/controller/BaseController.php',
     'Controller\\CartController' => $baseDir . '/controller/CartController.php',
     'Controller\\DefaultController' => $baseDir . '/controller/DefaultController.php',

@@ -11,10 +11,23 @@ class RouteManager
     private static $class;
     private $request;
     private $routes;
+    private $controller;
+    private $function;
+    private $needsAuth;
 
     private function __construct(){
         $this->routes = Factory::getConfigManager()->get('routes');
         $this->request = new Request();
+        $this->loadRoute( $this->request->getRoute() );
+    }
+
+    private function loadRoute( $route )
+    {
+        list(
+            $this->controller,
+            $this->function,
+            $this->needsAuth
+        ) = $this->routes[array_key_exists($route, $this->routes)?$route:'ERROR'];
     }
 
     public static function getInstance(){
@@ -28,6 +41,7 @@ class RouteManager
     public function route()
     {
         $route = $this->request->getRoute();
+        $this->loadRoute( $route );
         $this->forwardTo( $route );
     }
 
@@ -35,6 +49,11 @@ class RouteManager
     {
         $this->request->setStatusCode($statusCode);
         $this->forwardTo('ERROR');
+    }
+
+    public function needsAuth()
+    {
+        return $this->needsAuth;
     }
 
     private function routeToController( $controller, $action )
@@ -64,8 +83,8 @@ class RouteManager
 
     private function forwardTo( $route )
     {
-        list($controller, $function) = $this->routes[array_key_exists($route, $this->routes)?$route:'ERROR'];
-        $this->routeToController( $controller, $function );
+        $this->loadRoute( $route );
+        $this->routeToController( $this->controller, $this->function );
     }
 }
 

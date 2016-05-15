@@ -8,7 +8,7 @@ class DefaultController extends BaseController
 {
       public function showError()
       {
-            return $this->response(array('message' => 'User not Authenticated'));
+            return $this->response(array('message' => 'Page Not Found'));
       }
 }
 

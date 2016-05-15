@@ -13,7 +13,6 @@ class App
     public function run()
     {
         $this->loadConfig();
-        $this->checkAuthentication();
         $this->route();
     }
 
@@ -29,15 +28,17 @@ class App
 
     private function checkAuthentication()
     {
-        if( !$this->authManager->isUserLoggedIn() ){
+        if($this->authManager->isUserLoggedIn()){
             $this->routeManager->routeToError(403);
         }
     }
 
     private function route()
     {
-        $config = $this->routeManager->get('routes');
-        $route = $this->routeManager->route($config);
+        if( $this->routeManager->needsAuth() ){
+            $this->checkAuthentication();
+        }
+        $route = $this->routeManager->route();
     }
 }
 

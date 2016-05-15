@@ -21,6 +21,11 @@ class Request
         $this->setPostParameters();
     }
 
+    public function getPOST( $key )
+    {
+        return isset($this->post[$key]) ? $this->post[$key] : null;
+    }
+
     public function setStatusCode($statusCode)
     {
         $this->statusCode = $statusCode;

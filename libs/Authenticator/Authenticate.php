@@ -16,7 +16,7 @@ class Authenticate
             $this->userDB = Factory::getDatabaseFactory()->getUserMap();
       }
 
-      public function authenticate()
+      public function authenticate( $username, $password )
       {
             if( !$this->isUserLoggedIn() ){
                   return $this->doLogin( $username, $password );
