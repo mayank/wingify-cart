@@ -14,6 +14,7 @@
             "controller/",
             "databases/",
             "libs/",
+            "models/",
             "bootstrap/"
         ]
     }

@@ -2,7 +2,6 @@
 
 namespace DBC;
 
-
 class UserMap extends ObjectMap
 {
     protected $table = 'users';
@@ -16,10 +15,10 @@ class UserMap extends ObjectMap
     public function getUserByCredentials( $username, $password )
     {
         return $this->find()
-                ->where( array(
+                ->where(array(
                     'username' => $username,
                     'password' => md5($password)
-                )->get();
+                ))->get();
     }
 }
 

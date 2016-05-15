@@ -18,6 +18,7 @@ return array(
     'DBC\\DatabaseFactory' => $baseDir . '/databases/DatabaseFactory.php',
     'DBC\\ObjectMap' => $baseDir . '/databases/ObjectMap.php',
     'DBC\\UserMap' => $baseDir . '/databases/UserMap.php',
+    'Model\\UserModel' => $baseDir . '/models/UserModel.php',
     'Router\\Request' => $baseDir . '/libs/Router/Request.php',
     'Router\\RouteManager' => $baseDir . '/libs/Router/RouteManager.php',
     'Session\\SessionManager' => $baseDir . '/libs/Session/SessionManager.php',

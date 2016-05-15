@@ -2,7 +2,7 @@
 
 namespace Authenticator;
 
-use DBC\UserMap;
+use Model\UserModel;
 use App\Factory;
 
 class Authenticate
@@ -21,7 +21,7 @@ class Authenticate
             if( !$this->isUserLoggedIn() ){
                   return $this->doLogin( $username, $password );
             }
-            return false;
+            return array('status' => true, 'message' => 'Already LoggedIn');
       }
 
       public function doLogin( $username, $password )
@@ -30,7 +30,7 @@ class Authenticate
             $message = null;
 
             $user = $this->getUserByCredentials( $username, $password );
-            if( $user instanceof UserMap ){
+            if( $user instanceof UserModel ){
                   $this->setUserSession($user);
                   $status = true;
                   $message = 'Logged In Successfully';
@@ -55,7 +55,7 @@ class Authenticate
       {
             $userId = $this->sessionManager->get('_user');
             $user = $this->userDB->getUserById( $userId );
-            return ($user instanceof UserMap);
+            return ($user instanceof UserModel);
       }
 
 
