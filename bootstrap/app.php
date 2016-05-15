@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Factory;
+use App\Factory;
 
 class App
 {
@@ -10,14 +10,7 @@ class App
     private $routeManager;
     private $authManager;
 
-    public function __construct()
-    {
-        $this->configManager = Factory::getConfigManager();
-        $this->routeManager = Factory::getRouteManager();
-        $this->authManager = Factory::getAuthManager();
-    }
-
-    public static function run()
+    public function run()
     {
         $this->loadConfig();
         $this->checkAuthentication();
@@ -26,18 +19,21 @@ class App
 
     private function loadConfig()
     {
-        $this->configManager->load(__DIR__.'/config');
+        $this->configManager = Factory::getConfigManager();
+        $this->configManager->load(__DIR__.'/../config');
     }
 
     private function checkAuthentication()
     {
-        if( !$this->authManager->isUserAuthenticated() ){
+        $this->authManager = Factory::getAuthManager();
+        if( !$this->authManager->isUserLoggedIn() ){
             $this->routeManager->routeToError(403);
         }
     }
 
     private function route()
     {
+        $this->routeManager = Factory::getRouteManager();
         $config = $this->routeManager->get('routes');
         $route = $this->routeManager->route($config);
     }

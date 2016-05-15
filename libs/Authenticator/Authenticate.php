@@ -3,11 +3,20 @@
 namespace Authenticator;
 
 use Model\UserModel;
-use UserDBC;
-use Sessions\SessionFactory;
+use App\Factory;
 
 class Authenticate
 {
+
+      private $sessionManager;
+
+      public function __construct()
+      {
+            $this->sessionManager = Factory::getSessionManager();
+            $databaseFactory = Factory::getDatabaseFactory();
+            $this->userDB = $databaseFactory::getUserDBC();
+      }
+
       public function authenticate()
       {
             if( !$this->isUserLoggedIn() ){
@@ -23,7 +32,7 @@ class Authenticate
 
             $user = $this->getUserByCredentials( $username, $password );
             if( $user instanceof UserModel ){
-                  $this->setUserSession($user) );
+                  $this->setUserSession($user);
                   $status = true;
                   $message = MessageProvider::get('login_success');
             }

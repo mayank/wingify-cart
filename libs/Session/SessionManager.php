@@ -1,27 +1,32 @@
 <?php
 
-namespace Sessions;
+namespace Session;
 
-class SessionFactory
+use App\Factory;
+
+class SessionManager
 {
     private static $class;
     private $session;
     private $config;
     private $name;
 
-    private function __construct( $config ){
+    private function __construct(){
         session_start();
-        $this->config = $config;
+        $this->config = Factory::getConfigManager()->get('session');
         $this->name = $this->config['name'];
-        $this->session = json_decode($_SESSION[$this->name],true);
+        $this->session = $this->getSession();
     }
 
-    public static function getInstance( $config ){
+    private function getSession()
+    {
+        return isset($_SESSION[$this->name]) ? json_decode($_SESSION[$this->name],true) : array();
+    }
 
+    public static function getInstance(){
         if(self::$class == null){
-            self::$class = new SessionFactory( $config );
+            self::$class = new SessionManager();
         }
-
         return self::$class;
     }
 
@@ -38,7 +43,7 @@ class SessionFactory
 
     public function __destruct()
     {
-        $_SESSION[$this->$name] = json_encode(this->session);
+        $_SESSION[$this->$name] = json_encode($this->session);
     }
 
 }

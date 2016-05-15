@@ -2,13 +2,16 @@
 
 namespace Router;
 
-use Authenticator\AuthManager;
 use Controller;
+use Router\Request;
 
 class RouteManager
 {
     private static $class;
+    private $request;
+
     private function __construct(){
+        $this->request = new Request();
     }
 
     public static function getInstance(){
@@ -21,7 +24,7 @@ class RouteManager
 
     public function route( $routes )
     {
-        $route = $this->getRouteFromRequest();
+        $route = $this->request->getRoute();
         $this->forwardTo( $route );
     }
 
@@ -34,6 +37,9 @@ class RouteManager
     {
         $controller = "Controller\\$controller";
         $callable = new $controller();
+
+        #setting up current request
+        $callable->setRequest($this->request);
         $callable->$action();
 
         $this->windUp();
@@ -41,16 +47,8 @@ class RouteManager
 
     private function windUp()
     {
+        # more stuff can be done like response listeners etc.
         exit(1);
-    }
-
-    private function getRouteFromRequest()
-    {
-        $parsedUrl = parse_url($_SERVER['REQUEST_URI']);
-        $path = $parsedUrl['path'];
-
-        $method = $_SERVER['REQUEST_METHOD'];
-        return "$method:$path";
     }
 
     private function forwardTo( $route )

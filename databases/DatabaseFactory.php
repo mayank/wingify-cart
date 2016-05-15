@@ -3,10 +3,7 @@
 namespace DBC;
 
 use App\Factory;
-
-use DBC\CartDBC;
-use DBC\ProductDBC;
-use DBC\UserDBC;
+use PDO;
 
 class DatabaseFactory
 {
@@ -31,7 +28,6 @@ class DatabaseFactory
         }
         return self::$class;
     }
-
 }
 
 ?>

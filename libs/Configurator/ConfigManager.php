@@ -32,6 +32,10 @@ class ConfigManager
         return $this->config;
     }
 
+    public function all(){
+        return $this->config;
+    }
+
     public function get( $configName ){
         if( array_key_exists($configName, $this->config) ){
             return $this->config[$configName];

@@ -6,11 +6,20 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Configurator\\ConfigFactory' => $baseDir . '/libs/Configurator/ConfigFactory.php',
+    'App\\App' => $baseDir . '/bootstrap/app.php',
+    'App\\Factory' => $baseDir . '/bootstrap/factory.php',
+    'Authenticator\\Authenticate' => $baseDir . '/libs/Authenticator/Authenticate.php',
+    'Authenticator\\AuthenticationFactory' => $baseDir . '/libs/Authenticator/AuthenticationFactory.php',
+    'Configurator\\ConfigManager' => $baseDir . '/libs/Configurator/ConfigManager.php',
     'Controller\\BaseController' => $baseDir . '/controller/BaseController.php',
     'Controller\\CartController' => $baseDir . '/controller/CartController.php',
+    'DBC\\BaseDBC' => $baseDir . '/database/BaseDBC.php',
+    'DBC\\CartDBC' => $baseDir . '/database/CartDBC.php',
+    'DBC\\DatabaseFactory' => $baseDir . '/database/DatabaseFactory.php',
     'Model\\BaseModel' => $baseDir . '/models/BaseModel.php',
     'Model\\ProductModel' => $baseDir . '/models/ProductModel.php',
     'Model\\UserModel' => $baseDir . '/models/UserModel.php',
-    'Router\\RouterFactory' => $baseDir . '/libs/Router/RouterFactory.php',
+    'Router\\Request' => $baseDir . '/libs/Router/Request.php',
+    'Router\\RouteManager' => $baseDir . '/libs/Router/RouteManager.php',
+    'Session\\SessionManager' => $baseDir . '/libs/Session/SessionManager.php',
 );

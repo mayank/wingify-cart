@@ -3,7 +3,7 @@
 return array(
 	'mysql' => array(
 		'host'	=> 'localhost',
-		'username' => 'root',
+		'user' => 'root',
 		'password' => '',
 		'database' => 'wingify'
 	)
