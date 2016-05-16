@@ -14,8 +14,7 @@ class ObjectMap
 
     public function __construct( $connection )
     {
-        $this->sql = null;
-        $this->where = array();
+        $this->clearSQL();
         $this->connection = $connection;
     }
 
@@ -32,15 +31,6 @@ class ObjectMap
         return $this;
     }
 
-    private function prepared()
-    {
-        $prepared = $this->connection->prepare( $this->sql );
-        $this->bindParams( $prepared );
-        $prepared->execute();
-        $prepared->setFetchMode(PDO::FETCH_CLASS, $this->getModel());
-        return $prepared;
-    }
-
     protected function get()
     {
         return $this->prepared()->fetch();
@@ -49,6 +39,22 @@ class ObjectMap
     protected function all()
     {
         return $this->prepared()->fetchAll();
+    }
+
+    private function clearSQL()
+    {
+        $this->sql = null;
+        $this->where = array();
+    }
+
+    private function prepared()
+    {
+        $prepared = $this->connection->prepare( $this->sql );
+        $this->bindParams( $prepared );
+        $prepared->execute();
+        $this->clearSQL();
+        $prepared->setFetchMode(PDO::FETCH_CLASS, $this->getModel());
+        return $prepared;
     }
 
     private function bindParams( $prepared )

@@ -38,6 +38,11 @@ class DatabaseFactory
     {
         return new CartMap($this->connection);
     }
+
+    public function getItemMap()
+    {
+        return new ItemMap($this->connection);
+    }
 }
 
 ?>

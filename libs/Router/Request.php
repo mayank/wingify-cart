@@ -43,6 +43,19 @@ class Request
 
         $parsedUrl = parse_url($this->requestUri);
         $this->path = $parsedUrl['path'];
+
+        $this->setParams();
+    }
+
+    private function setParams()
+    {
+        preg_match('/(\/)([0-9]+)/', $this->path, $params);
+        $this->params = $params[2];
+    }
+
+    public function getParams()
+    {
+        return $this->params;
     }
 
     public function setGetParameters()
@@ -57,7 +70,8 @@ class Request
 
     public function getRoute()
     {
-        return $this->method.":".$this->path;
+        $path = preg_replace('/(\/)[0-9]+/','/{id}', $this->path);
+        return $this->method.":".$path;
     }
 }
 

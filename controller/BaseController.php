@@ -7,6 +7,10 @@ class BaseController
 {
       private $request;
 
+      public function __construct()
+      {
+      }
+
       public function setRequest($request)
       {
             $this->request = $request;

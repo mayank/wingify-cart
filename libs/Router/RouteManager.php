@@ -65,7 +65,7 @@ class RouteManager
 
             #setting up current request
             $callable->setRequest($this->request);
-            $callable->$action();
+            $callable->$action($this->request->getParams());
 
         } catch (Exception $e) {
             $this->request->setStatusCode(500);
