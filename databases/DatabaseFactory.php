@@ -33,6 +33,11 @@ class DatabaseFactory
     {
         return new UserMap($this->connection);
     }
+
+    public function getCartMap()
+    {
+        return new CartMap($this->connection);
+    }
 }
 
 ?>

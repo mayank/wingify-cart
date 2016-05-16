@@ -7,9 +7,16 @@ use Configurator\ConfigManager;
 use Authenticator\Authenticate;
 use Session\SessionManager;
 use DBC\DatabaseFactory;
+use Cache\CacheManager;
 
 class Factory
 {
+
+    public static function getCacheManager()
+    {
+        return CacheManager::getInstance();
+    }
+
     public static function getConfigManager()
     {
         return ConfigManager::getInstance();

@@ -28,7 +28,7 @@ class App
 
     private function checkAuthentication()
     {
-        if($this->authManager->isUserLoggedIn()){
+        if(!$this->authManager->isUserLoggedIn()){
             $this->routeManager->routeToError(403);
         }
     }

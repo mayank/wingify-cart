@@ -9,9 +9,11 @@ class Authenticate
 {
       private $sessionManager;
       private $userDB;
+      private $cacheManager;
 
       public function __construct()
       {
+            $this->cacheManager = Factory::getCacheManager();
             $this->sessionManager = Factory::getSessionManager();
             $this->userDB = Factory::getDatabaseFactory()->getUserMap();
       }
@@ -55,6 +57,7 @@ class Authenticate
       {
             $userId = $this->sessionManager->get('_user');
             $user = $this->userDB->getUserById( $userId );
+            $this->cacheManager->set('user', $user);
             return ($user instanceof UserModel);
       }
 

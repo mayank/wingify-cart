@@ -10,23 +10,13 @@ class ObjectMap
 {
     protected $connection;
     protected $sql;
-    protected $params;
+    protected $where;
 
     public function __construct( $connection )
     {
         $this->sql = null;
-        $this->params = array();
+        $this->where = array();
         $this->connection = $connection;
-    }
-
-    protected function findPrimary( $key )
-    {
-        $sql = "SELECT * FROM ".$this->table." WHERE ".$this->primary." = :key";
-        $prepared = $this->connection->prepare($sql);
-        $prepared->bindValue(":key", $key);
-        $prepared->execute();
-        $prepared->setFetchMode(PDO::FETCH_CLASS, $this->getModel());
-        return $prepared->fetch();
     }
 
     protected function find()
@@ -35,32 +25,35 @@ class ObjectMap
         return $this;
     }
 
-    protected function where( $params )
+    protected function where( $key, $value )
     {
-        $this->params = $params;
-        $this->sql .= " WHERE ";
-
-        $paramSQL = array();
-        foreach( $this->params as $key => $value ){
-            $paramSQL[] = "$key = :$key ";
-        }
-
-        $this->sql .= implode("and ", $paramSQL);
+        $this->sql .= (empty($this->where) ? " WHERE " : " AND ")."$key = :$key";
+        $this->where[$key] = $value;
         return $this;
     }
 
-    protected function get()
+    private function prepared()
     {
         $prepared = $this->connection->prepare( $this->sql );
         $this->bindParams( $prepared );
         $prepared->execute();
         $prepared->setFetchMode(PDO::FETCH_CLASS, $this->getModel());
-        return $prepared->fetch();
+        return $prepared;
+    }
+
+    protected function get()
+    {
+        return $this->prepared()->fetch();
+    }
+
+    protected function all()
+    {
+        return $this->prepared()->fetchAll();
     }
 
     private function bindParams( $prepared )
     {
-        foreach( $this->params as $key => $value ){
+        foreach( $this->where as $key => $value ){
             $prepared->bindValue(":$key", $value );
         }
     }
