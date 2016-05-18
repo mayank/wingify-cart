@@ -11,11 +11,11 @@ class Authenticate
       private $userDB;
       private $cacheManager;
 
-      public function __construct()
+      public function __construct( $cacheManager, $sessionManager, $databaseFactory )
       {
-            $this->cacheManager = Factory::getCacheManager();
-            $this->sessionManager = Factory::getSessionManager();
-            $this->userDB = Factory::getDatabaseFactory()->getUserMap();
+            $this->cacheManager = $cacheManager;
+            $this->sessionManager = $sessionManager;
+            $this->userDB = $databaseFactory->getUserMap();
       }
 
       public function authenticate( $username, $password )

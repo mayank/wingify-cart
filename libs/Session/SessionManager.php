@@ -11,9 +11,9 @@ class SessionManager
     private $config;
     private $name;
 
-    private function __construct(){
+    private function __construct( $configManager ){
         session_start();
-        $this->config = Factory::getConfigManager()->get('session');
+        $this->config = $configManager->get('session');
         $this->name = $this->config['name'];
         $this->session = $this->getSession();
     }
@@ -23,9 +23,9 @@ class SessionManager
         return isset($_SESSION[$this->name]) ? json_decode($_SESSION[$this->name],true) : array();
     }
 
-    public static function getInstance(){
+    public static function getInstance($configManager){
         if(self::$class == null){
-            self::$class = new SessionManager();
+            self::$class = new SessionManager($configManager);
         }
         return self::$class;
     }

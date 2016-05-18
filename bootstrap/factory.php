@@ -11,7 +11,6 @@ use Cache\CacheManager;
 
 class Factory
 {
-
     public static function getCacheManager()
     {
         return CacheManager::getInstance();
@@ -24,22 +23,28 @@ class Factory
 
     public static function getRouteManager()
     {
-        return RouteManager::getInstance();
+        $configManager = self::getConfigManager();
+        return RouteManager::getInstance($configManager);
     }
 
     public static function getAuthManager()
     {
-        return new Authenticate();
+        $cacheManager = self::getCacheManager();
+        $sessionManager = self::getSessionManager();
+        $databaseFactory = self::getDatabaseFactory();
+        return new Authenticate($cacheManager, $sessionManager, $databaseFactory);
     }
 
     public static function getSessionManager()
     {
-        return SessionManager::getInstance();
+        $configManager = self::getConfigManager();
+        return SessionManager::getInstance($configManager);
     }
 
     public static function getDatabaseFactory()
     {
-        return DatabaseFactory::getInstance();
+        $configManager = self::getConfigManager();
+        return DatabaseFactory::getInstance($configManager);
     }
 
 }

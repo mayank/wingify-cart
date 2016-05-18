@@ -10,8 +10,8 @@ class DatabaseFactory
     private static $class;
     private $connection;
 
-    private function __construct(){
-        $mysqlConf = Factory::getConfigManager()->get('database');
+    private function __construct( $configManager ){
+        $mysqlConf = $configManager->get('database');
 
         $host = $mysqlConf['mysql']['host'];
         $dbname = $mysqlConf['mysql']['database'];
@@ -21,10 +21,10 @@ class DatabaseFactory
         $this->connection = new PDO("mysql:host=$host;dbname=$dbname",$dbuser,$dbpswd);
     }
 
-    public static function getInstance(){
+    public static function getInstance($configManager){
 
         if(self::$class == null){
-            self::$class = new DatabaseFactory();
+            self::$class = new DatabaseFactory($configManager);
         }
         return self::$class;
     }

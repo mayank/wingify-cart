@@ -15,8 +15,8 @@ class RouteManager
     private $function;
     private $needsAuth;
 
-    private function __construct(){
-        $this->routes = Factory::getConfigManager()->get('routes');
+    private function __construct( $configManager ){
+        $this->routes =$configManager->get('routes');
         $this->request = new Request();
         $this->loadRoute( $this->request->getRoute() );
     }
@@ -30,10 +30,10 @@ class RouteManager
         ) = $this->routes[array_key_exists($route, $this->routes)?$route:'ERROR'];
     }
 
-    public static function getInstance(){
+    public static function getInstance($configManager){
 
         if(self::$class == null){
-            self::$class = new RouteManager();
+            self::$class = new RouteManager($configManager);
         }
         return self::$class;
     }
