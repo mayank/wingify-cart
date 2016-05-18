@@ -51,7 +51,7 @@ class ProductController extends BaseController
       public function deleteItem( $itemId )
       {
             $response = $this->itemDB->deleteItemById( $itemId );
-            $this->responseOK(array('item' => $response));
+            $this->responseOK(array('status' => $response));
       }
 }
 
