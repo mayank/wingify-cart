@@ -30,14 +30,28 @@ class ProductController extends BaseController
 
       public function createNewItem()
       {
+            $itemModel = new ItemModel();
+            $itemModel->input( $this->getRequest()->getAllPOST() );
+            $error = $itemModel->validate();
+            if( $error ) return $this->responseOK(array('error' => $error));
+            $response = $this->itemDB->save( $itemModel );
+            return $this->responseOK(array('item' => $response));
       }
 
-      public function updateItem()
+      public function updateItem( $itemId )
       {
+            $itemModel = $this->itemDB->getItemById( $itemId );
+            $itemModel->input( $this->getRequest()->getAllPOST() );
+            $error = $itemModel->validate();
+            if( $error ) return $this->responseOK(array('error' => $error));
+            $response = $this->itemDB->save( $itemModel );
+            $this->responseOK(array('item' => $response));
       }
 
-      public function deleteItem()
+      public function deleteItem( $itemId )
       {
+            $response = $this->itemDB->deleteItemById( $itemId );
+            $this->responseOK(array('item' => $response));
       }
 }
 

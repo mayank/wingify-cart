@@ -21,6 +21,11 @@ class Request
         $this->setPostParameters();
     }
 
+    public function getAllPOST()
+    {
+        return $this->post;
+    }
+
     public function getPOST( $key )
     {
         return isset($this->post[$key]) ? $this->post[$key] : null;
@@ -50,7 +55,9 @@ class Request
     private function setParams()
     {
         preg_match('/(\/)([0-9]+)/', $this->path, $params);
-        $this->params = $params[2];
+        if( count($params) > 2 ){
+            $this->params = $params[2];
+        }
     }
 
     public function getParams()

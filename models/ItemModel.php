@@ -2,18 +2,13 @@
 
 namespace Model;
 
+use Model\BaseModel;
 
-class ItemModel
+class ItemModel extends BaseModel
 {
-    public function toArray()
-    {
-        return array(
-            'id' => $this->itemId,
-            'name' => $this->itemName,
-            'details' => json_decode( $this->details, true )
-        );
-    }
+    protected $keys = array('itemName','price');
+    protected $validate = array('itemName' => '[a-zA-Z0-9 ]+', 'price' => '[0-9]+');
+    protected $primary = 'itemId';
 }
 
-
- ?>
+?>

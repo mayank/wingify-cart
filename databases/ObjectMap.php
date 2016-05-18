@@ -64,6 +64,66 @@ class ObjectMap
         }
     }
 
+    public function save( $model )
+    {
+        if( $model->getPrimary() === null ){
+            $result = $this->createNew($model);
+            if( $result ){
+                $model->setPrimary( $result );
+            }
+        } else {
+            $result = $this->update($model);
+        }
+        return $result ? $model : false;
+    }
+
+    private function createNew( $model )
+    {
+        $columns = implode(",",$model->getColumns());
+        $bindings = $model->getBindings();
+        $bindingKeys = implode(",",array_keys($bindings));
+
+
+        $sql = "insert into ".$this->table." ($columns) values ($bindingKeys)";
+        $prepared = $this->connection->prepare($sql);
+        foreach($bindings as $key => $value){
+            $prepared->bindValue($key,$value);
+        }
+        $prepared->execute();
+        return $this->connection->lastInsertId();
+    }
+
+    public function delete()
+    {
+        $this->sql = "delete from ".$this->table." ".$this->sql;
+        return $this->prepared()->rowCount() > 0;
+    }
+
+    private function update( $model )
+    {
+        $primary = $model->getPrimaryKey();
+        $bindings = $model->getBindings();
+
+        $sql = "update ".$this->table." set ". $this->updateQuery($bindings) ." where $primary = :$primary";
+        $prepared = $this->connection->prepare($sql);
+        foreach($bindings as $key => $value){
+            $prepared->bindValue($key,$value);
+        }
+        $prepared->bindValue($primary,$model->getPrimary());
+        $prepared->execute();
+        return $prepared->rowCount();
+    }
+
+    private function updateQuery( $bindings )
+    {
+        $keys = array_keys($bindings);
+        $sql = array();
+        foreach($keys as $key){
+            $sql[] = substr($key,1)." = $key";
+        }
+        return implode(", ",$sql);
+    }
+
     private function getModel()
     {
         $className = get_class($this);

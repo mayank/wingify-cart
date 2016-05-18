@@ -16,10 +16,11 @@ class ItemMap extends ObjectMap
         return $this->find()->where('itemId',$itemId)->get();
     }
 
-    public function create( $userModel )
+    public function deleteItemById( $itemId )
     {
-        return $this->save( $userModel );
+        return $this->where('itemId', $itemId)->delete();
     }
+
 }
 
  ?>

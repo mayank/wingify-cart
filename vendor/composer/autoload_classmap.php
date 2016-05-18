@@ -21,6 +21,7 @@ return array(
     'DBC\\ItemMap' => $baseDir . '/databases/ItemMap.php',
     'DBC\\ObjectMap' => $baseDir . '/databases/ObjectMap.php',
     'DBC\\UserMap' => $baseDir . '/databases/UserMap.php',
+    'Model\\BaseModel' => $baseDir . '/models/BaseModel.php',
     'Model\\CartModel' => $baseDir . '/models/CartModel.php',
     'Model\\ItemModel' => $baseDir . '/models/ItemModel.php',
     'Model\\UserModel' => $baseDir . '/models/UserModel.php',
