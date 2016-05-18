@@ -17,8 +17,12 @@ cd wingify-cart
 ```
 mysql -u<your-username> -p<your-password> < sql/dump.sql
 ```
-5. replace database configurations in `config/database.php` file
-6. run command to start the server on localhost listening to 8000 port
+5. run composer autoloader command to autoload classes
+```
+composer dump-autoload
+```
+6. replace database configurations in `config/database.php` file
+7. run command to start the server on localhost listening to 8000 port
 ```
 php -S localhost:8000 index.php
 ```
