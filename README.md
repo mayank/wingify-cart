@@ -4,7 +4,8 @@ RestfulAPI for adding/deleting/editing items in Cart
 
 ### Setup Instructions
 
-> Using docker image
+> Using Docker Image
+
 * build docker image and deploy
 
 ```
@@ -15,6 +16,7 @@ $ docker run -p8000:8000 -d wingify
 OR
 
 > Native Setup
+
 * `git`, `php`, `mysql` and `composer` are required as prerequisites.
 * clone the repository in a folder, use
 
