@@ -6,26 +6,36 @@ RestfulAPI for adding/deleting/editing items in Cart
 
 * `git`, `php`, `mysql` and `composer` are required as prerequisites.
 * clone the repository in a folder, use
+
 ```
 git clone https://github.com/mayank/wingify-cart.git
 ```
+
 * change directory to the project directory
+
 ```
 cd wingify-cart
 ```
+
 * run command to dump the mysql database
+
 ```
 mysql -u<your-username> -p<your-password> < sql/dump.sql
 ```
+
 * run composer autoloader command to autoload classes
+
 ```
 composer dump-autoload
 ```
+
 * replace database configurations in `config/database.php` file
 * run command to start the server on localhost listening to 8000 port
+
 ```
 php -S localhost:8000 index.php
 ```
+
 
 
 ### List of RestfulAPI methods
